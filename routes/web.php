@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,3 +35,21 @@ Route::get('/avliable_dogs_cats/detail', function () {
 Route::get('/avliable_dogs_cats/detail/questions', function () {
     return view('Questions');
 })->name('questions');
+
+
+
+
+Route::group(['prefix' => 'admin'], function(){
+
+    #Guest Routes
+    Route::group(['middleware' => 'admin.guest'], function(){
+        Route::get('/login',[AdminLoginController::class,'index'])->name('admin.login');
+        Route::post('/authenticate',[AdminLoginController::class,'authenticate'])->name('admin.authenticate');
+    });
+
+    #Auth Routes
+    Route::group(['middleware' => 'admin.auth'], function(){
+        Route::get('/dashboard',[HomeController::class,'index'])->name('admin.home');
+        Route::get('/dashboard/logout',[HomeController::class,'Logout'])->name('admin.logout');
+    });
+});

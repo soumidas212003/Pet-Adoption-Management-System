@@ -33,6 +33,6 @@
       <a href="{{route('AboutUsPage')}}" class="text-white text-xl my-4">About Us</a>
       <a href="#" class="text-white text-xl my-4">Login</a>
       <a href="#" class="text-white text-xl my-4">Feedback</a>
-      <a href="#" class="text-white text-xl my-4">Admin Login</a>
+      <a href="{{route('admin.login')}}" class="text-white text-xl my-4">Admin Login</a>
     </div>
   </div>
