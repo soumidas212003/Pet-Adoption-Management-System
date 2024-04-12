@@ -50,6 +50,10 @@ Route::group(['prefix' => 'admin'], function(){
     #Auth Routes
     Route::group(['middleware' => 'admin.auth'], function(){
         Route::get('/dashboard',[HomeController::class,'index'])->name('admin.home');
+        Route::get('/pet-donors',[HomeController::class,'PetDonors'])->name('admin.donors');
+        Route::get('/profile', function () {
+            return view('Admin.Profile');
+        })->name('admin.profile');
         Route::get('/dashboard/logout',[HomeController::class,'Logout'])->name('admin.logout');
     });
 });

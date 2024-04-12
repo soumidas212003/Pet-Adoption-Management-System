@@ -16,4 +16,8 @@ class HomeController extends Controller
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
+
+    public function PetDonors(){
+        return view('Admin.Pet-Donors');
+    }
 }
