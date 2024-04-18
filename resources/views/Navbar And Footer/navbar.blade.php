@@ -9,7 +9,7 @@
       </svg>
 
       <button
-        class="h-10 w-40 border rounded-full hidden md:block bg-orange-500 text-white text-white-500 font-bold hover:bg-orange-600 focus:bg-orange-600 transition-colors duration-300">Login</button>
+        class="h-10 w-40 border rounded-full hidden md:block bg-orange-500 text-white text-white-500 font-bold hover:bg-orange-600 focus:bg-orange-600 transition-colors duration-300"><a href="{{route('select-login')}}">Login</a></button>
 
     </div>
     <div class="hamburger flex items-center md:order-2 " id="hamburger-menu">

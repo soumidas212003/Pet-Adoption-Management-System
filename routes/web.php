@@ -36,6 +36,18 @@ Route::get('/avliable_dogs_cats/detail/questions', function () {
     return view('Questions');
 })->name('questions');
 
+Route::get('/home/login-type', function () {
+    return view('Select-Login');
+})->name('select-login');
+
+
+
+#Pet Donors
+
+Route::get('/home/donor-login', function () {
+    return view('Pet-Donors.login');
+})->name('donor-login');
+
 
 
 
