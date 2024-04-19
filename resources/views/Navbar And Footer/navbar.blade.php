@@ -3,10 +3,10 @@
       <img src="{{asset('Images/FureverFamilyFinder.png')}}" class="h-10 w-40" alt="">
     </div>
     <div class="Account-Info md:order-3">
-      <svg class="h-10 w-10 text-red-500 md:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <a href="{{route('select-login')}}"><svg class="h-10 w-10 text-red-500 md:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
+      </svg></a>
 
       <button
         class="h-10 w-40 border rounded-full hidden md:block bg-orange-500 text-white text-white-500 font-bold hover:bg-orange-600 focus:bg-orange-600 transition-colors duration-300"><a href="{{route('select-login')}}">Login</a></button>

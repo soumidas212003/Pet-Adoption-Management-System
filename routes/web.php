@@ -48,6 +48,14 @@ Route::get('/home/donor-login', function () {
     return view('Pet-Donors.login');
 })->name('donor-login');
 
+Route::get('/home/donor-signup', function () {
+    return view('Pet-Donors.Signup');
+})->name('donor-signup');
+
+Route::get('/donor-dashboard', function () {
+    return view('Pet-Donors.Dashboard');
+})->name('donor-dashboard');
+
 
 
 
