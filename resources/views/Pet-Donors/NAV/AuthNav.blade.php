@@ -8,8 +8,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
         </a>
-        <button id="account-dropdown" class="h-10 w-10 border rounded-full hidden md:block bg-orange-500 text-white font-bold hover:bg-orange-600 focus:bg-orange-600 transition-colors duration-300">D</button>
-        <span class="ml-2 hidden">Donor Name</span>
+        <button id="account-dropdown" class="h-10 w-10 border rounded-full hidden md:block bg-orange-500 text-white font-bold hover:bg-orange-600 focus:bg-orange-600 transition-colors duration-300">{{substr(Auth::guard('donor')->user()->full_name, 0, 1)}}</button>
     </div>
     <div class="hamburger flex items-center md:order-2 " id="hamburger-menu">
         <svg class="h-8 w-8 text-black-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

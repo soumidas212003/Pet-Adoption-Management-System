@@ -1,9 +1,6 @@
 @extends('Layout')
 
-@section('swiper-bundle')
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-
-@section('title_nm','Re-Home Or Adopt A Pet From Nearby Location')
+@section('title_nm','Manage And Update Pet Details')
 
 @section('Navbar')
 @include('Pet-Donors.NAV.AuthNav')
@@ -12,15 +9,32 @@
 <div class="hero">
     <div class="relative">
         <!-- Dropdown content -->
-<div id="dropdown-content" class="hidden absolute z-auto right-0 mt-12 w-48 bg-white rounded-md shadow-lg">
-    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
-    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Settings</a>
-    <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
+<div id="dropdown-content" class="hidden flex flex-col items-center justify-between absolute z-auto right-0 mt-0 w-48 bg-white rounded-md shadow-lg space-y-4">
+    <div class="part-1 flex flex-row items-center justify-between space-x-4">
+      <img src="{{asset('Images/profile.png')}}" alt="" class="h-6 w-6">
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold">My Profile</a>
+    </div>
+    <div class="part-1 flex flex-row items-center justify-between">
+      <img src="{{asset('Images/my-pets.png')}}" alt="" class="h-6 w-6">
+      <a href="{{route('donor-pets')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-8">My Pets</a>
+    </div>
+    <div class="part-1 flex flex-row items-center justify-between">
+      <img src="{{asset('Images/address.png')}}" alt="" class="h-6 w-6">
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-1">My Address</a>
+    </div>
+    <div class="part-1 flex flex-row items-center justify-between">
+      <img src="{{asset('Images/history.png')}}" alt="" class="h-6 w-6">
+      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-1">My History</a>
+    </div>
+    <div class="part-1 flex flex-row items-center justify-between">
+      <img src="{{asset('Images/logout.png')}}" alt="" class="h-6 w-6">
+      <a href="{{route('donor-logout')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-[1.5rem]">Logout</a>
+    </div>
 </div>
       <img src={{asset('Images/home-hero.jpg')}} alt="Image" class="w-full h-auto md:h-[30rem]">
       <div
         class="absolute bottom-0 left-10 right-10 bg-white h-1/3 border-l border-r border-t border-opacity-25 md:left-60 md:right-60 flex flex-col z-0">
-        <p class="text-center font-bold text-[#515252] md:text-2xl md:mt-5">Welcome Donor_Name</p>
+        <p class="text-center font-bold text-[#515252] md:text-2xl md:mt-5">Welcome {{Auth::guard('donor')->user()->full_name}}</p>
         <p class="text-center text-sm md:text-lg text-[#515252]">Every Pet Deserves a Good Home. #FureverFamilyFinder
         </p>
         <button

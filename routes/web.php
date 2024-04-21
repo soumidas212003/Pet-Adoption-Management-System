@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Pet_Donors\DonorController;
 use App\Http\Controllers\Admin\HomeController;
 
 /*
@@ -44,10 +45,6 @@ Route::get('/home/login-type', function () {
 
 #Pet Donors
 
-Route::get('/home/donor-login', function () {
-    return view('Pet-Donors.login');
-})->name('donor-login');
-
 Route::get('/home/donor-signup', function () {
     return view('Pet-Donors.Signup');
 })->name('donor-signup');
@@ -57,6 +54,25 @@ Route::get('/donor-dashboard', function () {
 })->name('donor-dashboard');
 
 
+Route::group(['prefix' => 'donor'], function(){
+
+    #Guest Routes
+    Route::group(['middleware' => 'donor.guest'], function(){
+        Route::get('/home/donor-login',[DonorController::class,'index'])->name('donor-login');
+        Route::post('/donor-reg',[DonorController::class,'registerdonor'])->name('donor.register');
+        Route::post('/authenticate',[DonorController::class,'donorauthenticate'])->name('donor.authenticate');
+        Route::get('/otp-validate',[DonorController::class,'validateOTP'])->name('otp-validate');
+        Route::post('/otp-verify',[DonorController::class,'verifyOTP'])->name('otp-verify');
+    });
+
+    #Auth Routes
+    Route::group(['middleware' => 'donor.auth'], function(){
+        Route::get('/dashboard',[DonorController::class,'dashboard'])->name('donor-dashboard');
+        Route::get('/dashboard/my-pets',[DonorController::class,'mypets'])->name('donor-pets');
+        Route::get('/dashboard/add-new-pet',[DonorController::class,'newpet'])->name('donor-new-pet');
+        Route::get('/logout',[DonorController::class,'Logout'])->name('donor-logout');
+    });
+});
 
 
 Route::group(['prefix' => 'admin'], function(){
