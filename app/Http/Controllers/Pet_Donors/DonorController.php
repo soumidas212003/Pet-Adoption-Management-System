@@ -25,6 +25,10 @@ class DonorController extends Controller
         return view('Pet-Donors.Dashboard');
     }
 
+    public function myprofile(){
+        return view('Pet-Donors.My-Profile');
+    }
+
 
     public function showpet(string $id){
         $pets = DB::table('pets')->where('id',$id)->get();
@@ -35,7 +39,7 @@ class DonorController extends Controller
     public function mypets(){
         $pets = DB::table('pets')
                 ->where('pets.owner_id', Auth::guard('donor')->user()->id)
-                ->get();
+                ->paginate(2);
         return view('Pet-Donors.mypets', ['pets' => $pets]);
     }
     
@@ -44,7 +48,9 @@ class DonorController extends Controller
         return view('Pet-Donors.addnewpet');
     }
 
-    
+    public function editprofile(){
+        return view('Pet-Donors.Edit-Profile');
+    }
     
     
     
@@ -217,6 +223,30 @@ class DonorController extends Controller
         return redirect()->route('update-pet',$id)->with('success',"Pet Updated Successfully");
     }
 
+    public function editprofileone(Request $req){
+        $req->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'mobile' => 'required',
+            'address'=>'required',
+            'state'=>'required',
+            'pin_code'=>'required'
+        ]);
+
+        $donors=DB::table('donors')
+        ->where('id', Auth::guard('donor')->user()->id)
+        ->update([
+            'full_name'=>$req->name,
+            'email'=>$req->email,
+            'mobile_no'=>$req->mobile,
+            'address'=>$req->address,
+            'state'=>$req->state,
+            'pin_code'=>$req->pin_code,
+        ]); 
+
+        return redirect()->route('editprofile-view')->with("success","Profile Updated Successfully");
+    }
+
     public function updatepetimage(Request $req, $id){
         $req->validate([
             'image' => 'required',
@@ -229,6 +259,20 @@ class DonorController extends Controller
         ]);
 
         return redirect()->route('update-pet',$id)->with('success',"Pet Image Updated Successfully");
+    }
+
+    public function editprofileimage(Request $req){
+        $req->validate([
+            'image' => 'required',
+        ]);
+        $path=$req->file('image')->store('Images','public');
+        $pets=DB::table('donors')
+        ->where('id', Auth::guard('donor')->user()->id)
+        ->update([
+            'image'=>$path
+        ]);
+
+        return redirect()->route('editprofile-view')->with('success',"Image Updated Successfully");
     }
 
     public function updatepetcertificate(Request $req, $id){

@@ -1,6 +1,6 @@
 @extends('Layout')
 
-@section('title_nm','Re-Home Or Adopt A Pet From Nearby Location')
+@section('title_nm','Pet Donor::My Profile')
 
 @section('Navbar')
 @include('Pet-Donors.NAV.AuthNav')
@@ -28,23 +28,33 @@
       <a href="{{route('donor-logout')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-[1.5rem]">Logout</a>
     </div>
 </div>
-<h1 class="text-2xl font-bold text-[#515279] text-center mt-5">Your Pets</h1>
+<h1 class="text-2xl font-bold text-[#515279] text-center mt-5">Your Profile</h1>
 
 <div class="flex justify-center items-start mt-8 mb-7">
   <div class="bg-white shadow appearance-none border rounded h-96 w-72 md:w-[40rem] lg:w-[80rem] relative flex flex-col items-center justify-center">
       <button class="absolute top-0 right-0 mt-4 mr-4 border rounded-full bg-white text-orange-600 border-orange-600 w-32 md:w-52 md:text-lg">
-          <a href="{{route('donor-new-pet')}}">Add Your Pet</a>
+          <a href="{{route('editprofile-view')}}">Edit Profile</a>
       </button>
-      @foreach($pets as $p)
-      <a href="{{ route('show-pet', $p->id) }}" class="mt-5">
-          <div class="bg-white shadow appearance-none border rounded h-14 w-44 flex flex-row items-center justify-center space-x-4">
-              <img src="{{asset('Images/dogavatar.jpg')}}" alt="" class="h-10 w-10">
-              <p class="text-sm font-bold">{{$p->pet_name}}</p>
-          </div>
-      </a>
-      @endforeach
-      <div class="mt-5">
-        {{ $pets->links() }}
+      <img src="/storage/{{Auth::guard('donor')->user()->image}}" alt="" class="h-10 w-10 md:h-20 md:w-20 border rounded-full border-black absolute top-0 left-0 mt-4 ml-4">
+      <div class="flex flex-col justify-evenly space-y-5 md:space-x-96 md:flex-row">
+        <div class="flex flex-col">
+          <p class="text-sm text-[#515252] font-bold">Full Name</p>
+          <p class="text-lg font-bold">{{Auth::guard('donor')->user()->full_name}}</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-sm text-[#515252] font-bold">State</p>
+          <p class="text-lg font-bold">{{Auth::guard('donor')->user()->state}}</p>
+        </div>
+      </div>
+      <div class="flex flex-col justify-evenly space-y-5 md:space-x-80 md:flex-row mt-8">
+        <div class="flex flex-col">
+          <p class="text-sm text-[#515252] font-bold">Email Address</p>
+          <p class="text-lg font-bold">{{Auth::guard('donor')->user()->email}}</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-sm text-[#515252] font-bold">Contact No</p>
+          <p class="text-lg font-bold">{{Auth::guard('donor')->user()->mobile_no}}</p>
+        </div>
       </div>
   </div>
 </div>

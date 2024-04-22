@@ -76,6 +76,10 @@ Route::group(['prefix' => 'donor'], function(){
         Route::post('donor/update-pets/{id}',[DonorController::class,'updateformpet'])->name('update-pet-form');
         Route::post('donor/update-pets-image/{id}',[DonorController::class,'updatepetimage'])->name('update-pet-image');
         Route::post('donor/update-pets-certificate/{id}',[DonorController::class,'updatepetcertificate'])->name('update-pet-certificate');
+        Route::get('/My-Profile',[DonorController::class,'myprofile'])->name('my-profile');
+        Route::get('/My-Profile/edit-profile',[DonorController::class,'editprofile'])->name('editprofile-view');
+        Route::post('/My-Profile/edit-profile-one',[DonorController::class,'editprofileone'])->name('editprofile-one');
+        Route::post('/My-Profile/edit-profile-image',[DonorController::class,'editprofileimage'])->name('editprofile-image');
         Route::get('/logout',[DonorController::class,'Logout'])->name('donor-logout');
     });
 });
