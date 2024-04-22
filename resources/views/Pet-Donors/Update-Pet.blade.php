@@ -1,6 +1,6 @@
 @extends('Layout')
 
-@section('title_nm','Donor::Add New Pet')
+@section('title_nm','Donor::Update Pet')
 
 @section('Navbar')
 @include('Pet-Donors.NAV.AuthNav')
@@ -33,27 +33,55 @@
 <h1 class="text-2xl font-bold text-[#515279] text-center mt-5">Add New Pet</h1>
 <hr class="mx-28 mt-5 font-bold">
 
+
+
 @if(session('success'))
         <div id="alert" class="mb-4 mr-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-md relative">
             <button id="close-alert" class="absolute top-0 right-0 -mt-1 -mr-1 px-2 py-1 text-white">&times;</button>
             <p id="msg">{{ session('success') }}</p>
         </div>
         @endif
+<form action="{{route('update-pet-image',$pets->id)}}" class="flex flex-col items-start justify-center px-8 mt-8 space-y-7 md:px-72" enctype="multipart/form-data" method="POST">
+    <a href="{{route('show-pet',$pets->id)}}" class="font-bold text-blue-500">Back</a>
+    @csrf
+    <div class="image space-y-4 flex flex-col">
+        <label for="" class="text-sm font-bold text-[#5b5047]">Upload Your Pet's Image <span class="text-red-600">*</span></label>
+        <img src="/storage/{{$pets->pet_image}}" alt="" class="h-10 w-10">
+        <input type="file" name="image" class="@error('image')
+        border-red-600 @enderror" value="{{$pets->pet_image}}">
+        @error('image')
+          <p class="text-red-500">{{$message}}</p>
+        @enderror
+    </div>
+    <div class="image space-y-4 flex items-center justify-center">
+        <button type="submit" class="bg-orange-600 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+      </div>
+</form>
 
-<form action="{{route('add-pet')}}" class="flex flex-col items-start justify-center px-8 mt-8 space-y-7 md:px-72" enctype="multipart/form-data" method="POST">
+<form action="{{route('update-pet-certificate',$pets->id)}}" class="flex flex-col items-start justify-center px-8 mt-8 space-y-7 md:px-72" enctype="multipart/form-data" method="POST">
+    @csrf
+    <div class="image space-y-4 flex flex-col">
+        <label for="" class="text-sm font-bold text-[#5b5047]">Upload Your Pet's Vaccination Certificate <span class="text-red-600">*</span></label>
+        <input type="file" name="cretificate_pdf" class="@error('cretificate_pdf')
+        border-red-600 @enderror" value="{{$pets->vaccination_certificate}}">
+        <a href="/storage/{{$pets->vaccination_certificate}}" target="blank" class="text-blue-500 font-bold">See The PDF</a>
+    
+        @error('cretificate_pdf')
+          <p class="text-red-500">{{$message}}</p>
+        @enderror
+      </div>
+    <div class="image space-y-4 flex items-center justify-center">
+        <button type="submit" class="bg-orange-600 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+      </div>
+</form>
+
+<form action="{{route('update-pet-form',$pets->id)}}" class="flex flex-col items-start justify-center px-8 mt-8 space-y-7 md:px-72" enctype="multipart/form-data" method="POST">
+    
   @csrf
-  <div class="image space-y-4 flex flex-col">
-    <label for="" class="text-sm font-bold text-[#5b5047]">Upload Your Pet's Image <span class="text-red-600">*</span></label>
-    <input type="file" name="image" class="@error('image')
-    border-red-600 @enderror">
-    @error('image')
-      <p class="text-red-500">{{$message}}</p>
-    @enderror
-  </div>
   <div class="image space-y-4 flex flex-col">
     <label for="" class="text-sm font-bold text-[#5b5047]">Pet's Name? <span class="text-red-600">*</span></label>
     <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:w-[34rem] @error('name')
-    border-red-600 @enderror">
+    border-red-600 @enderror" value="{{$pets->pet_name}}">
     @error('name')
     <p class="text-red-500">{{$message}}</p>
   @enderror
@@ -62,7 +90,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Pet's Type? <span class="text-red-600">*</span></label>
       <select name="pettype" id="pettype" class=" md:w-[34rem] h-9 w-60 border  @error('pettype')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT Type--</option>
+                        <option selected value="{{$pets->pet_type}}">{{$pets->pet_type}}</option>
                         <option value="Dog">Dog</option>
                         <option value="Cat">Cat</option>
                         
@@ -75,7 +103,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047] ">Pet's Breed? <span class="text-red-600">*</span></label>
       <select name="breed" id="breed" class=" md:w-[34rem] h-9 w-60 border  @error('breed')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT BREED--</option>
+                        <option selected value="{{$pets->pet_breed}}">{{$pets->pet_breed}}</option>
                         <option value="Golden Retriever">Golden Retriever</option>
                         <option value="German Shepherd">German Shepherd</option>
                         <option value="French Bulldog">French Bulldog</option>
@@ -106,7 +134,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Pet's Age? <span class="text-red-600">*</span></label>
       <select name="petage" id="petage" class="md:w-[34rem] h-9 w-60 border  @error('petage')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT AGE--</option>
+                        <option selected value="{{$pets->pet_age}}">{{$pets->pet_age}}</option>
                         <option value="Upto 6 Months">Upto 6 Months</option>
                         <option value="6 To 18 Months">6 To 18 Months</option>
                         <option value="1.5 To 3 Years">1.5 To 3 Years</option>
@@ -122,7 +150,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Pet's Gender? <span class="text-red-600">*</span></label>
       <select name="petgender" id="pet-gender" class="md:w-[34rem] h-9 w-60 border  @error('petgender')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT GENDER--</option>
+                    <option selected value="{{$pets->pet_gender}}">{{$pets->pet_gender}}</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
       </select>
@@ -134,7 +162,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Pet's Vaccination? <span class="text-red-600">*</span></label>
       <select name="petvaccination" id="petvaccination" class="md:w-[34rem] h-9 w-60 border  @error('petvaccination')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT VACCINATION STATUS--</option>
+                        <option selected value="{{$pets->pet_vaccination}}">{{$pets->pet_vaccination}}</option>
                         <option value="Vaccinated">Vaccinated</option>
                         <option value="Not Vaccinated">Not Vaccinated</option>
       </select>
@@ -146,7 +174,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Pet's Neutered? <span class="text-red-600">*</span></label>
       <select name="petneutered" id="petneutered" class="md:w-[34rem] h-9 w-60 border  @error('petneutered')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT--</option>
+                    <option selected value="{{$pets->criteria_one}}">{{$pets->criteria_one}}</option>
                         <option value="Neutered">Neutered</option>
                         <option value="Not Neutered">Not Neutered</option>
       </select>
@@ -158,7 +186,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Shots Up To Date? <span class="text-red-600">*</span></label>
       <select name="shotsuptodate" id="shotsuptodate" class="md:w-[34rem] h-9 w-60 border  @error('shotsuptodate')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT--</option>
+                    <option selected value="{{$pets->criteria_two}}">{{$pets->criteria_two}}</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
       </select>
@@ -170,7 +198,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Good With Dogs? <span class="text-red-600">*</span></label>
       <select name="gooddogs" id="gooddogs" class="md:w-[34rem] h-9 w-60 border  @error('gooddogs')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT--</option>
+                    <option selected value="{{$pets->criteria_three}}">{{$pets->criteria_three}}</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
       </select>
@@ -182,7 +210,7 @@
     <label for="" class="text-sm font-bold text-[#5b5047]">Good With Kids? <span class="text-red-600">*</span></label>
       <select name="goodkids" id="good-kids" class="md:w-[34rem] h-9 w-60 border  @error('goodkids')
                     border-red-600 @enderror">
-                        <option disabled selected>--SELECT--</option>
+                    <option selected value="{{$pets->criteria_four}}">{{$pets->criteria_four}}</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
       </select>
@@ -192,8 +220,8 @@
   </div>
   <div class="image space-y-4 flex flex-col">
     <label for="" class="text-sm font-bold text-[#5b5047]">Why you want to donate your pet? <span class="text-red-600">*</span></label>
-      <textarea name="donationreason" id="" cols="30" rows="10" class="md:w-[34rem] shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('donationreason')
-      border-red-600 @enderror"></textarea>
+    <input type="text" id="donationreason" name="donationreason" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:w-[34rem] md:h-20 @error('name')
+    border-red-600 @enderror" value="{{$pets->donation_reason}}">
       @error('donationreason')
       <p class="text-red-500">{{$message}}</p>
     @enderror
@@ -201,19 +229,12 @@
   <div class="image space-y-4 flex flex-col">
     <label for="" class="text-sm font-bold text-[#5b5047]">Donate Your Pet?</label>
       <select name="donatepet" id="donatepet" class="md:w-[34rem] h-9 w-60 border">
-                        <option disabled selected>--SELECT--</option>
+                        <option selected value="{{$pets->donate_pet_or_not}}">{{$pets->donate_pet_or_not}}</option>
                         <option value="1">Yes</option>
                         <option value="0">No</option>
       </select>
   </div>
-  <div class="image space-y-4 flex flex-col">
-    <label for="" class="text-sm font-bold text-[#5b5047]">Upload Your Pet's Vaccination Certificate <span class="text-red-600">*</span></label>
-    <input type="file" name="cretificate_pdf" class="@error('cretificate_pdf')
-    border-red-600 @enderror">
-    @error('cretificate_pdf')
-      <p class="text-red-500">{{$message}}</p>
-    @enderror
-  </div>
+  
   <div class="image space-y-4 flex items-center justify-center">
     <button type="submit" class="bg-orange-600 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
   </div>

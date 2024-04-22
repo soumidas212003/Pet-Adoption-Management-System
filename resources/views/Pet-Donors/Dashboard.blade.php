@@ -16,7 +16,7 @@
     </div>
     <div class="part-1 flex flex-row items-center justify-between">
       <img src="{{asset('Images/my-pets.png')}}" alt="" class="h-6 w-6">
-      <a href="{{route('donor-pets')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-8">My Pets</a>
+      <a href="{{ route('donor-pets') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-8">My Pets</a>
     </div>
     <div class="part-1 flex flex-row items-center justify-between">
       <img src="{{asset('Images/address.png')}}" alt="" class="h-6 w-6">

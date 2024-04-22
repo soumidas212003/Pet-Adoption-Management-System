@@ -70,6 +70,12 @@ Route::group(['prefix' => 'donor'], function(){
         Route::get('/dashboard',[DonorController::class,'dashboard'])->name('donor-dashboard');
         Route::get('/dashboard/my-pets',[DonorController::class,'mypets'])->name('donor-pets');
         Route::get('/dashboard/add-new-pet',[DonorController::class,'newpet'])->name('donor-new-pet');
+        Route::post('/add-pets',[DonorController::class,'AddPet'])->name('add-pet');
+        Route::get('/show-pets/{id}',[DonorController::class,'showpet'])->name('show-pet');
+        Route::get('/update-pets/{id}',[DonorController::class,'updatepet'])->name('update-pet');
+        Route::post('donor/update-pets/{id}',[DonorController::class,'updateformpet'])->name('update-pet-form');
+        Route::post('donor/update-pets-image/{id}',[DonorController::class,'updatepetimage'])->name('update-pet-image');
+        Route::post('donor/update-pets-certificate/{id}',[DonorController::class,'updatepetcertificate'])->name('update-pet-certificate');
         Route::get('/logout',[DonorController::class,'Logout'])->name('donor-logout');
     });
 });

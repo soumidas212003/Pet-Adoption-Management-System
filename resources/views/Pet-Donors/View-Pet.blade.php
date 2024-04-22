@@ -1,6 +1,6 @@
 @extends('Layout')
 
-@section('title_nm','Re-Home Or Adopt A Pet From Nearby Location')
+@section('title_nm','PET DONORS::VIEW PET DETAILS')
 
 @section('Navbar')
 @include('Pet-Donors.NAV.AuthNav')
@@ -30,22 +30,25 @@
 </div>
 <h1 class="text-2xl font-bold text-[#515279] text-center mt-5">Your Pets</h1>
 
-<div class="flex justify-center items-start mt-8 mb-7">
-  <div class="bg-white shadow appearance-none border rounded h-96 w-72 md:w-[40rem] lg:w-[80rem] relative flex flex-col items-center justify-center">
-      <button class="absolute top-0 right-0 mt-4 mr-4 border rounded-full bg-white text-orange-600 border-orange-600 w-32 md:w-52 md:text-lg">
-          <a href="{{route('donor-new-pet')}}">Add Your Pet</a>
-      </button>
-      @foreach($pets as $p)
-      <a href="{{ route('show-pet', $p->id) }}" class="mt-5">
-          <div class="bg-white shadow appearance-none border rounded h-14 w-44 flex flex-row items-center justify-center space-x-4">
-              <img src="{{asset('Images/dogavatar.jpg')}}" alt="" class="h-10 w-10">
-              <p class="text-sm font-bold">{{$p->pet_name}}</p>
-          </div>
-      </a>
-      @endforeach
-  </div>
+<div class="flex justify-center items-start mt-8 mb-7"> 
+    <!-- Adjusted flex and items properties here -->
+    <div class="bg-white shadow appearance-none border rounded h-96 w-72 md:w-[40rem] lg:w-[80rem] relative flex flex-col items-center justify-center"> 
+        @foreach($pets as $pet)
+        <div class="bg-white shadow appearance-none border rounded h-14 w-44 flex flex-row items-center justify-center space-x-4">
+            <img src="{{asset('Images/dogavatar.jpg')}}" alt="" class="h-10 w-10">
+            <p class="text-sm font-bold">{{$pet->pet_name}}</p> 
+            <a href="{{route('update-pet',$pet->id)}}" class="font-bold text-blue-500">Edit</a>
+        </div>
+        <div class="flex flex-col items-center justify-between bg-white shadow appearance-none border rounded h-52 w w-60 mt-4 py-4">
+            <p class="font-bold">Breed Name:- {{$pet->pet_breed}}</p>
+            <p class="font-bold">Gender:- {{$pet->pet_gender}}</p>
+            <p class="font-bold">Age:- {{$pet->pet_age}}</p>
+            <p class="font-bold">Vaccinated?:- {{$pet->pet_vaccination}}</p>
+        </div>
+        @endforeach
+        <a href="{{ route('donor-pets', Auth::guard('donor')->user()->id) }}" class="text-blue-600 font-bold mt-3">Back</a>
+    </div>
 </div>
-
 
 
 @section('footer')
