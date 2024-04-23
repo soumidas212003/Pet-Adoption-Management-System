@@ -43,7 +43,7 @@ Route::get('/home/login-type', function () {
 
 
 
-#Pet Donors
+####################################################DONOR ROUTES##################################################
 
 Route::get('/home/donor-signup', function () {
     return view('Pet-Donors.Signup');
@@ -80,9 +80,14 @@ Route::group(['prefix' => 'donor'], function(){
         Route::get('/My-Profile/edit-profile',[DonorController::class,'editprofile'])->name('editprofile-view');
         Route::post('/My-Profile/edit-profile-one',[DonorController::class,'editprofileone'])->name('editprofile-one');
         Route::post('/My-Profile/edit-profile-image',[DonorController::class,'editprofileimage'])->name('editprofile-image');
+        Route::get('/change-password',[DonorController::class,'ChangePasswordView'])->name('change-password-view');
+        Route::post('/change-password-action',[DonorController::class,'ChangePassword'])->name('change-password-action');
         Route::get('/logout',[DonorController::class,'Logout'])->name('donor-logout');
     });
 });
+
+
+#############################################ADMIN ROUTES#######################################################
 
 
 Route::group(['prefix' => 'admin'], function(){

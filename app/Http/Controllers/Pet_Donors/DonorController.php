@@ -51,6 +51,32 @@ class DonorController extends Controller
     public function editprofile(){
         return view('Pet-Donors.Edit-Profile');
     }
+
+
+    public function ChangePasswordView(){
+        return view('Pet-Donors.Change-Password');
+    }
+
+    public function ChangePassword(Request $req){
+        $req->validate([
+            'password' => 'required',
+            'newpassword' => 'required',
+            'cpassword'=>'required|same:newpassword'
+        ]);
+        
+
+        if (Hash::check($req->password, Auth::guard('donor')->user()->password)) {
+            $donors = DB::table('donors')
+                ->where('id', Auth::guard('donor')->user()->id)
+                ->update([
+                    'password' => Hash::make($req->newpassword),
+                ]); 
+            return redirect()->route('change-password-view')->with('success', "Password Changed Successfully");
+        } else {
+            return redirect()->route('change-password-view')->with('error', "Password Is Not Matched");
+        }
+
+    }
     
     
     

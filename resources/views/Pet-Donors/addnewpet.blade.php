@@ -6,7 +6,7 @@
 @include('Pet-Donors.NAV.AuthNav')
 
 @section('Main')
-<div id="dropdown-content" class="hidden flex flex-col items-center justify-between absolute z-auto right-0 mt-0 w-48 bg-white rounded-md shadow-lg space-y-4">
+<div id="dropdown-content" class="hidden flex flex-col items-center justify-between absolute z-10 right-0 mt-0 w-48 bg-white rounded-md shadow-lg space-y-4">
     <div class="part-1 flex flex-row items-center justify-between space-x-4">
       <img src="{{asset('Images/profile.png')}}" alt="" class="h-6 w-6">
       <a href="{{route('my-profile')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold">My Profile</a>
@@ -17,7 +17,7 @@
     </div>
     <div class="part-1 flex flex-row items-center justify-between">
       <img src="{{asset('Images/address.png')}}" alt="" class="h-6 w-6">
-      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-1">My Address</a>
+      <a href="{{route('change-password-view')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200 text-sm font-bold ml-1">Change Password</a>
     </div>
     <div class="part-1 flex flex-row items-center justify-between">
       <img src="{{asset('Images/history.png')}}" alt="" class="h-6 w-6">
