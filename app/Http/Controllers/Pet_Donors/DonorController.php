@@ -37,11 +37,17 @@ class DonorController extends Controller
     }
 
     public function mypets(){
+        $donorId = Auth::guard('donor')->user()->id;
+    
         $pets = DB::table('pets')
-                ->where('pets.owner_id', Auth::guard('donor')->user()->id)
+                ->join('donors', 'pets.owner_id', '=', 'donors.id')
+                ->where('donors.id', $donorId)
+                ->select('pets.*') // Select all columns from 'pets' table
                 ->paginate(2);
+    
         return view('Pet-Donors.mypets', ['pets' => $pets]);
     }
+    
     
 
     public function newpet(){
